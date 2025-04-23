@@ -1,65 +1,67 @@
 
-// Haetaan elementit
-const searchBtn = document.getElementById("searchBtn");
-const artistInput = document.getElementById("artistInput");
-const artistInfoDiv = document.getElementById("artistInfo");
+/* Haetaan tarvittavat elementit HTML:stä */
+const searchBtn = document.getElementById("searchBtn"); /* Hae-nappi */
+const artistInput = document.getElementById("artistInput"); /* Tekstikenttä johon käyttäjä syöttää artistin nimen */
+const artistInfoDiv = document.getElementById("artistInfo"); /* Tähän tulee artistin tiedot + albumit */
 
-// Klikattaessa hakunappia tehdään API-kutsut
+/* Kun käyttäjä klikkaa hakunappia, suoritetaan haku */
 searchBtn.addEventListener("click", () => {
-  const artist = artistInput.value.trim();
-  if (!artist) return;
+  const artist = artistInput.value.trim(); /* Haetaan syötetty nimi ja poistetaan turhat välilyönnit */
+  if (!artist) return; /*   jos kenttä on tyhjä, ei tehdä mitään  */
 
-  const apiKey = "f1cb549fe40d6e3cc98eac0a6f6273ba";
+  const apiKey = "f1cb549fe40d6e3cc98eac0a6f6273ba"; /*  Oma Last.fm API-avain */
 
-  // Haetaan artistin tiedot
+  /* Luodaan url artistin tietojen hakua varten */
   const infoUrl = `https://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=${encodeURIComponent(artist)}&api_key=${apiKey}&format=json`;
 
+  /* Lähetetään pyyntö artistin tietoja varten */
   fetch(infoUrl)
-    .then(res => res.json())
+    .then(res => res.json()) /* Muutetaan vastaus JSON-muotoon */
     .then(data => {
       if (data.error) {
+        /* virheiloitus, jos artistia ei löydy */
         artistInfoDiv.innerHTML = "<p>Artist not found.</p>";
         return;
       }
 
-      const artistData = data.artist;
-      const image = artistData.image?.[2]['#text'] || "";
+      const artistData = data.artist; /* Talletetaan artistin tiedot */
+      const image = artistData.image?.[2]['#text'] || ""; /* Artistin kuva (koko 2), jos saatavilla */
 
-      // Artistin tiedot vasempaan reunaan
+      /* Näytetään artistin nimi ja kuvaus  */
       artistInfoDiv.innerHTML = `
         <div class="main-content">
           <div class="artist-info">
             <h2>${artistData.name}</h2>
-            <p>${artistData.bio.content}</p>
+            <p>${artistData.bio.content}</p> <!-- Artistin kuvaus (koko sisältö) -->
           </div>
-          <div class="album-list" id="albumListContainer"></div>
+          <div class="album-list" id="albumListContainer"></div> <!-- Tähän tulee albumit -->
         </div>
       `;
 
-      // Laitetaan albumit oikealle puolelle oikeaan kohtaan
-      const albumListContainer = document.getElementById("albumListContainer");
+      const albumListContainer = document.getElementById("albumListContainer"); /* Haetaan albumilistadiv uudestaan */
 
-      // Haetaan artistin albumit
+      /* Luodaan URL artistin albumien hakua varten */
       const albumsUrl = `https://ws.audioscrobbler.com/2.0/?method=artist.gettopalbums&artist=${encodeURIComponent(artist)}&api_key=${apiKey}&format=json`;
 
+      /* Haetaan artistin albumit */
       fetch(albumsUrl)
-        .then(res => res.json())
+        .then(res => res.json()) /* Muutetaan albumit JSON-muotoon */
         .then(albumData => {
           if (albumData.error) {
-            albumListContainer.innerHTML = "<p>No albums found.</p>";
+            albumListContainer.innerHTML = "<p>No albums found.</p>"; /* Jos albumeja ei ole */
             return;
           }
 
-          // Luodaan jokaisesta albumista näkyvä kortti
+          /* käydään jokainen albumi läpi ja lisätään näkyviin */
           albumData.topalbums.album.forEach(album => {
-            const image = album.image?.[2]['#text'] || "";
-            const albumCard = document.createElement("div");
-            albumCard.classList.add("album");
+            const image = album.image?.[2]['#text'] || ""; /* Albumin kuva, jos saatavilla */
+            const albumCard = document.createElement("div"); /* Luodaan uusi div albumille */
+            albumCard.classList.add("album"); /* Lisätään diviin album-luokka (tyylit) */
             albumCard.innerHTML = `
-              <img src="${image}" alt="${album.name}">
-              <h3>${album.name}</h3>
+              <img src="${image}" alt="${album.name}"> <!-- Albumin kansikuva -->
+              <h3>${album.name}</h3> <!-- Albumin nimi -->
             `;
-            albumListContainer.appendChild(albumCard);
+            albumListContainer.appendChild(albumCard); /* Lisätään albumi näkymään   */
           });
         });
     });
