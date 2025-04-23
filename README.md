@@ -6,7 +6,7 @@ Single author project by Mika
 Access the published app at: [https://musinfo.netlify.app](https://musinfo.netlify.app)
 
 ## How was the workload divided
-This was a solo project. Mika was responsible for everything: planning, coding, styling, debugging and documentation.
+This is a solo project. I'm responsible for everything: planning, coding, styling, debugging and documentation.
 
 ## Table of Content:
 
@@ -45,7 +45,7 @@ All features work directly in the browser using a live API.
 1. User inputs an artist name
 2. JavaScript fetches artist info and albums from Last.fm API using AJAX
 3. DOM is dynamically updated with the data
-4. All event listeners are added via JavaScript (no inline HTML listeners)
+4. All event listeners are added via JavaScript
 5. Includes dark mode layout and responsive design
 6. Search can be triggered with both button click and pressing Enter
 
@@ -54,7 +54,7 @@ Musinfo is complete and fully functional. May be updated later for extra feature
 
 ## Credits
 - Layout and structure by Mika
-- Used ChatGPT for technical guidance and code comments
+- Used ChatGPT for technical guidance
 - Last.fm API documentation: https://www.last.fm/api
 
 ## License
