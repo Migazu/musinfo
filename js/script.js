@@ -33,7 +33,7 @@ document.getElementById("searchBtn").addEventListener("click", () => {
         return;
       }
 
-      data.topalbums.album.slice(0, 5).forEach(album => {
+      data.topalbums.album.forEach(album => {
         albumDiv.innerHTML += `
           <div class="album">
             <h3>${album.name}</h3>
