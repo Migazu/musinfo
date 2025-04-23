@@ -4,14 +4,22 @@ const searchBtn = document.getElementById("searchBtn"); /* Hae-nappi */
 const artistInput = document.getElementById("artistInput"); /* Tekstikenttä johon käyttäjä syöttää artistin nimen */
 const artistInfoDiv = document.getElementById("artistInfo"); /* Tähän tulee artistin tiedot + albumit */
 
+/* Mahdollistaa haun myös Enterillä */
+artistInput.addEventListener("keydown", function(event) {
+  if (event.key === "Enter") {
+    event.preventDefault(); /* Estetään lomakkeen mahdollinen oletustoiminta */
+    searchBtn.click(); /* Simuloidaan hakunapin painallus */
+  }
+});
+
 /* Kun käyttäjä klikkaa hakunappia, suoritetaan haku */
 searchBtn.addEventListener("click", () => {
-  const artist = artistInput.value.trim(); /* Haetaan syötetty nimi ja poistetaan turhat välilyönnit */
-  if (!artist) return; /*   jos kenttä on tyhjä, ei tehdä mitään  */
+  const artist = artistInput.value.trim(); /* Haetaan syötetty artistin nimi ja poistetaan turhat välilyönnit */
+  if (!artist) return; /* Jos kenttä on tyhjä, ei tehdä mitään */
 
-  const apiKey = "f1cb549fe40d6e3cc98eac0a6f6273ba"; /*  Oma Last.fm API-avain */
+  const apiKey = "f1cb549fe40d6e3cc98eac0a6f6273ba"; /* Oma Last.fm API-avain */
 
-  /* Luodaan url artistin tietojen hakua varten */
+  /* Luodaan URL artistin tietojen hakua varten */
   const infoUrl = `https://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=${encodeURIComponent(artist)}&api_key=${apiKey}&format=json`;
 
   /* Lähetetään pyyntö artistin tietoja varten */
@@ -19,7 +27,7 @@ searchBtn.addEventListener("click", () => {
     .then(res => res.json()) /* Muutetaan vastaus JSON-muotoon */
     .then(data => {
       if (data.error) {
-        /* virheiloitus, jos artistia ei löydy */
+        /* Jos artistia ei löydy, näytetään virheilmoitus */
         artistInfoDiv.innerHTML = "<p>Artist not found.</p>";
         return;
       }
@@ -27,7 +35,7 @@ searchBtn.addEventListener("click", () => {
       const artistData = data.artist; /* Talletetaan artistin tiedot */
       const image = artistData.image?.[2]['#text'] || ""; /* Artistin kuva (koko 2), jos saatavilla */
 
-      /* Näytetään artistin nimi ja kuvaus  */
+      /* Näytetään artistin nimi ja kuvaus vasemmalla */
       artistInfoDiv.innerHTML = `
         <div class="main-content">
           <div class="artist-info">
@@ -52,7 +60,7 @@ searchBtn.addEventListener("click", () => {
             return;
           }
 
-          /* käydään jokainen albumi läpi ja lisätään näkyviin */
+          /* Käydään jokainen albumi läpi ja lisätään näkyviin */
           albumData.topalbums.album.forEach(album => {
             const image = album.image?.[2]['#text'] || ""; /* Albumin kuva, jos saatavilla */
             const albumCard = document.createElement("div"); /* Luodaan uusi div albumille */
@@ -61,7 +69,7 @@ searchBtn.addEventListener("click", () => {
               <img src="${image}" alt="${album.name}"> <!-- Albumin kansikuva -->
               <h3>${album.name}</h3> <!-- Albumin nimi -->
             `;
-            albumListContainer.appendChild(albumCard); /* Lisätään albumi näkymään   */
+            albumListContainer.appendChild(albumCard); /* Lisätään albumi näkymään */
           });
         });
     });
