@@ -59,6 +59,8 @@ Musinfo is complete and fully functional. May be updated later for extra feature
 - Layout and structure by Mika
 - Used ChatGPT for technical guidance
 - Last.fm API documentation: https://www.last.fm/api
+- CSS tricks and Flexbox examples: [https://css-tricks.com/snippets/css/a-guide-to-flexbox/](https://css-tricks.com/snippets/css/a-guide-to-flexbox/)
+- Working with APIs in Javascript - p5.js Tutorial: https://www.youtube.com/watch?v=ecT42O6I_WI
 
 ## License
 MIT License © Mika
