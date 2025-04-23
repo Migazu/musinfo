@@ -27,7 +27,7 @@ Here is a screenshot of the working application:
 ![App Screenshot](musinfo.png)
 
 And here is a screenshot of the plan for the website:  
-![Plan Screenshot](plan.png)
+![Plan Screenshot](plans.png)
 
 ## Technologies
 I used the following technologies:
