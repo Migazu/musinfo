@@ -61,7 +61,7 @@ Musinfo is complete and fully functional. May be updated later for extra feature
 - Used ChatGPT for technical guidance
 - Last.fm API documentation: https://www.last.fm/api
 - CSS tricks and Flexbox examples: [https://css-tricks.com/snippets/css/a-guide-to-flexbox/](https://css-tricks.com/snippets/css/a-guide-to-flexbox/)
-- YouTube tutorial series: *jQuery Tutorials* by Dani Krossing  [Watch the playlist on YouTube]([https://www.youtube.com/playlist?list=PL0eyrZgxdwhwNC5ppZo_dYGVjerQY3xYU](https://www.youtube.com/watch?v=BaIgTKj1iCQ&list=PL0eyrZgxdwhy7byLHsVkuhtRV_IpoJU7n&pp=0gcJCWMEOCosWNin))
+- YouTube tutorial series: *jQuery Tutorials* by Dani Krossing  [Watch the playlist on YouTube](https://www.youtube.com/watch?v=BaIgTKj1iCQ&list=PL0eyrZgxdwhy7byLHsVkuhtRV_IpoJU7n)
 
 
 ## License
